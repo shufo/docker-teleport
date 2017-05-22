@@ -1,0 +1,8 @@
+ssh_service:
+  enabled: no
+auth_service:
+  enabled: yes
+  tokens:
+    - "node,proxy:all_your_base_are_belong_to_us"
+proxy_service:
+  enabled: no

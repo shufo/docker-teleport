@@ -1,0 +1,48 @@
+# By default, this file should be stored in /etc/teleport.yaml
+teleport:
+    # nodename allows to assign an alternative name this node can be reached by.
+    # by default it's equal to hostname
+    nodename: teleport.example.com
+    #storage:
+      #type: dynamodb
+      #region: ap-northeast-1
+      #table_name: teleport.state
+      #access_key: BKZA3H2LOKJ1QJ3YF21A
+      #secret_key: Oc20333k293SKwzraT3ah3Rv1G3/97POQb3eGziSZ
+
+auth_service:
+    enabled: yes
+    #
+    # statically assigned token: obviously we recommend a much harder to guess
+    # value than `xxxxx`, consider generating tokens using a tool like pwgen
+    #
+    # tokens:
+    #  - "proxy,node:eiJieha0nie1yiequ4Joedou3NiDep"
+
+ssh_service:
+    # Turns 'ssh' role on. Default is 'yes'
+    enabled: yes
+
+# This section configures the 'proxy servie'
+proxy_service:
+    # Turns 'proxy' role on. Default is 'yes'
+    enabled: yes
+
+    # SSH forwarding/proxy address. Command line (CLI) clients always begin their
+    # SSH sessions by connecting to this port
+    listen_addr: 0.0.0.0:3023
+
+    # Reverse tunnel listening address. An auth server (CA) can establish an
+    # outbound (from behind the firewall) connection to this address.
+    # This will allow users of the outside CA to connect to behind-the-firewall
+    # nodes.
+    tunnel_listen_addr: 0.0.0.0:3024
+
+    # The HTTPS listen address to serve the Web UI and also to authenticate the
+    # command line (CLI) users via password+HOTP
+    web_listen_addr: 0.0.0.0:3080
+
+    # TLS certificate for the HTTPS connection. Configuring these properly is
+    # critical for Teleport security.
+    #https_key_file: /etc/teleport/key.pem
+    #https_cert_file: /etc/teleport/fullchain.pem

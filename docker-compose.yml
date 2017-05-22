@@ -1,0 +1,33 @@
+version: '2'
+services:
+  auth:
+    image: shufo/teleport
+    volumes:
+      - ./teleport:/var/lib/teleport
+      - ./teleport.auth.yml:/etc/teleport.yml
+    ports:
+      - "3025:3025"
+    expose:
+      - 3025
+
+  proxy:
+    image: shufo/teleport
+    ports:
+      - "3023:3023"
+      - "3024:3024"
+      - "3080:3080"
+    expose:
+      - 3080
+    environment:
+      TELEPORT_ROLES: proxy
+      TELEPORT_AUTH_SERVER: auth
+      TELEPORT_TOKEN: all_your_base_are_belong_to_us
+
+  node:
+    image: shufo/teleport
+    ports:
+      - "3022:3022"
+    environment:
+      TELEPORT_ROLES: node
+      TELEPORT_AUTH_SERVER: auth
+      TELEPORT_TOKEN: all_your_base_are_belong_to_us
